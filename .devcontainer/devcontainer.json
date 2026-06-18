@@ -1,0 +1,36 @@
+{
+    "name": "Django & PostgreSQL Development Environment",
+    // Instructs the cloud service to pull a pre-configured Python 3 Linux base image
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+    // Automatically executes configuration features inside the remote container
+    "features": {
+        // Automatically downloads, installs, and starts a local PostgreSQL client and server instance
+        "ghcr.io/devcontainers/features/postgres:1": {
+            "version": "15",
+            "databaseName": "interview_analyzer_db",
+            "dbUser": "analyzer_admin",
+            "dbPassword": "secure_local_password_2026"
+        }
+    },
+    // Configures application properties inside the VS Code cloud window interface
+    "customizations": {
+        "vscode": {
+            // Automatically installs essential engineering tools upon container launch
+            "extensions": [
+                "ms-python.python", // Python language compilation support
+                "ms-python.vscode-pylance", // Smart code intelligence and auto-completion
+                "batisteo.vscode-django", // Django syntax highlighting and template tracking
+                "ckwtimer.jupter-shortcut", // Optional utility mapping
+                "mtxr.sqltools", // In-editor SQL database connection viewer
+                "mtxr.sqltools-driver-pg" // Specific PostgreSQL driver interface for the viewer
+            ]
+        }
+    },
+    // Ensures port 8000 (Django server) and port 5432 (Postgres database) are securely tunneled to your browser
+    "forwardPorts": [
+        8000,
+        5432
+    ],
+    // Sets up internal Linux service environment properties upon a clean initialization
+    "postCreateCommand": "pip install --upgrade pip && pip install django django-environ psycopg2-binary"
+}
